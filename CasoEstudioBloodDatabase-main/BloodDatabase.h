@@ -45,11 +45,16 @@ private:
     std::vector<Donor> donors;
 
     static void displayProvinces();
+    static void displayBloodTypes();
+
 
 public:
     static void clearConsole();
     static void waitForKeyPress();
     static int getValidatedInput(const std::string& prompt);
+    static std::string validateBloodType();
+    static std::string validateProvince();
+    static std::string mapProvince(int choice);
 
     void getDonorDetails();
     void writeDataToFile();

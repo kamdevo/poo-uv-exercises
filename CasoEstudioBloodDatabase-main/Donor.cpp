@@ -36,9 +36,9 @@ Donor Donor::parseLine(const std::string& line) {
     getline(ss, token, ','); d.donorId = std::stoi(trim(token));
     getline(ss, token, ','); d.name = trim(token);
     getline(ss, token, ','); d.address = trim(token);
-    getline(ss, token, ','); d.district = std::stoi(trim(token));
+    getline(ss, token, ','); d.district = trim(token);  // También cambiar district a string
     getline(ss, token, ','); d.bloodType = trim(token);
-    getline(ss, token, ','); d.number = std::stoi(trim(token));
+    getline(ss, token, ','); d.number = trim(token);    // Cambiar a string (sin stoi)
 
     return d;
 }

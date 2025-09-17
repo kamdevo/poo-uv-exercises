@@ -40,8 +40,8 @@
 
 class Donor {
 public:
-    int donorId, district, number;
-    std::string name, address, bloodType;
+    int donorId;
+    std::string name, address, bloodType, number, district;
 
     void donorDetails() const;
 
