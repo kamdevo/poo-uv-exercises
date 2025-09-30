@@ -18,6 +18,7 @@
     Fecha: Octubre 2024
 */
 #include "BloodDatabase.h"
+#include "InputHandler.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -40,33 +41,14 @@ void BloodDatabase::displayProvinces() {
     std::cout << "5. Risaralda\n";
     std::cout << "6. Antioquia\n";
     std::cout << "7. Norte de Santander\n";
-    std::cout << "8. Chocó\n";
+    std::cout << "8. ChutHandleocó\n";
     std::cout << "9. Arauca\n";
     std::cout << "10. Guainía\n";
 }
 
-std::string BloodDatabase::validateProvince() {
-    while(true)
-        {
-            int choice = getValidatedInput("Ingrese el número correspondiente a su departamento: ");
-            switch (choice) {
-            case 1: return "Putumayo";
-            case 2: return "Cauca";
-            case 3: return "Valle del Cauca";
-            case 4: return "Amazonas";
-            case 5: return "Risaralda";
-            case 6: return "Antioquia";
-            case 7: return "Norte de Santander";
-            case 8: return "Chocó";
-            case 9: return "Arauca";
-            case 10: return "Guainía";
-            default:
-                std::cout << "Elección inválida. Por favor, elige un número entre 1 y 10." << std::endl;
-                
-                break;
-            }
-        } 
-}
+
+
+
 
 //metodo displayBloodType para mostrar los tipos de sangre
 void BloodDatabase::displayBloodTypes() {
@@ -81,44 +63,7 @@ void BloodDatabase::displayBloodTypes() {
     std::cout << "8. O-\n";
 }
 
-// el metodo validateBloodType consulta el valor escogido y retorna el tipo de sangre correspondiente (string)
-// si la opción es inválida, muestra un mensaje y vuelve a pedir la entrada
-std::string BloodDatabase::validateBloodType() {
-    while(true)
-        {
-            int choice = getValidatedInput("Ingrese el número correspondiente a su tipo de sangre: ");
-            switch (choice) {
-            case 1: return "A+";
-            case 2: return "A-";
-            case 3: return "B+";
-            case 4: return "B-";
-            case 5: return "AB+";
-            case 6: return "AB-";
-            case 7: return "O+";
-            case 8: return "O-";
-            default:
-                std::cout << "Elección inválida. Por favor, elige un número entre 1 y 8." << std::endl;
-                
-                break;
-            }
-        } 
-}
 
-std::string BloodDatabase::mapProvince(int choice) {
-    switch (choice) {
-        case 1: return "Putumayo";
-        case 2: return "Cauca";
-        case 3: return "Valle del Cauca";
-        case 4: return "Amazonas";
-        case 5: return "Risaralda";
-        case 6: return "Antioquia";
-        case 7: return "Norte de Santander";
-        case 8: return "Chocó";
-        case 9: return "Arauca";
-        case 10: return "Guainía";
-        default: return "";
-    }
-}
 
 void BloodDatabase::clearConsole() {
 #ifdef _WIN32
@@ -134,25 +79,15 @@ void BloodDatabase::waitForKeyPress() {
     std::cin.get();
 }
 
-int BloodDatabase::getValidatedInput(const std::string& prompt) {
-    int value;
-    std::string input;
-    while (true) {
-        std::cout << prompt;
-        std::getline(std::cin, input);
-        try {
-            if (!std::all_of(input.begin(), input.end(), ::isdigit)) {
-                throw std::invalid_argument("La entrada contiene caracteres no numéricos");
-            }
-            value = std::stoi(input);
-            break; // si la conversión es exitosa, salir del bucle
-        } catch (const std::invalid_argument& e) {
-            std::cout << "Entrada no válida: " << e.what() << ". Por favor ingrese un número válido." << std::endl;
-        } catch (const std::out_of_range&) {
-            std::cout << "Entrada fuera de rango. Por favor ingrese un número válido." << std::endl;
-        }
-    }
-    return value;
+
+void BloodDatabase::displayDonorDetails(const Donor& donor) {
+    std::cout << "ID del donante: " << donor.getDonorId() << std::endl;
+    std::cout << "Nombre: " << donor.getName() << std::endl;
+    std::cout << "Dirección: " << donor.getAddress() << std::endl;
+    std::cout << "Departamento: " << donor.getDistrict() << std::endl;
+    std::cout << "Tipo de sangre: " << donor.getBloodType() << std::endl;
+    std::cout << "Número de móvil: " << donor.getNumber() << std::endl;
+    std::cout << "-----------------------------------" << std::endl;
 }
 
 void BloodDatabase::getDonorDetails() {
@@ -160,15 +95,19 @@ void BloodDatabase::getDonorDetails() {
     std::cout << "Ingrese los detalles del donante\n";
 
     Donor newDonor;
-    newDonor.donorId = getValidatedInput("Id: ");
-    std::cin.ignore(); // Limpiar el buffer después de getValidatedInput
+    newDonor.setDonorId(InputHandler::getValidatedInput("Id: "));
+
     std::cout << "Nombre: ";
-    std::getline(std::cin, newDonor.name);
+    std::string nameInput;
+    std::getline(std::cin, nameInput);
+    newDonor.setName(nameInput);
     std::cout << "Dirección: ";
-    std::getline(std::cin, newDonor.address);
+    std::string addressInput;
+    std::getline(std::cin, addressInput);
+    newDonor.setAddress(addressInput);
 
     displayProvinces();
-    newDonor.district = validateProvince();
+    newDonor.setDistrict(InputHandler::validateProvince());
 
 
 
@@ -177,13 +116,19 @@ void BloodDatabase::getDonorDetails() {
 
 
     //Se valida y se asigna el tipo de sangre
-    newDonor.bloodType = validateBloodType();
+    newDonor.setBloodType(InputHandler::validateBloodType());
 
     //debido a que se modificó el tipo de dato de "number" de int a string, cambia la forma de capturarlo
     std::cout << "Número: ";
-    std::getline(std::cin, newDonor.number);   //newDonor.number = getValidatedInput("Número: ");
+    std::string numberInput;
+    std::getline(std::cin, numberInput);
+    newDonor.setNumber(numberInput);   //newDonor.number = getValidatedInput("Número: ");
 
     donors.push_back(newDonor);
+    
+    newDonor.donorDetails(newDonor);
+    waitForKeyPress();
+    
 }
 
 void BloodDatabase::writeDataToFile() {
@@ -195,7 +140,7 @@ void BloodDatabase::writeDataToFile() {
     }
 
     Donor newDonor = donors.back();
-    outfile << newDonor.donorId << ",    " << newDonor.name << ",    " << newDonor.address << ",    " << newDonor.district << ",    " << newDonor.bloodType << ",    " << newDonor.number << std::endl;
+    outfile << newDonor.getDonorId() << ",    " << newDonor.getName() << ",    " << newDonor.getAddress() << ",    " << newDonor.getDistrict() << ",    " << newDonor.getBloodType() << ",    " << newDonor.getNumber() << std::endl;
 
     outfile.close();
 }
@@ -203,9 +148,9 @@ void BloodDatabase::writeDataToFile() {
 void BloodDatabase::searchAndDisplay() const {
     clearConsole();
     displayProvinces();
-    int provinceChoice = getValidatedInput("Ingrese el número de la departamento: ");
+    int provinceChoice = InputHandler::getValidatedInput("Ingrese el número de la departamento: ");
     std::cin.ignore(); // Limpiar el buffer después de getValidatedInput
-    std::string provinceName = mapProvince(provinceChoice);
+    std::string provinceName = InputHandler::mapProvince(provinceChoice);
     
     if (provinceName.empty()) {
         std::cout << "Número de departamento inválido. Debe estar entre 1 y 10.\n";
@@ -233,9 +178,9 @@ void BloodDatabase::searchAndDisplay() const {
 
     while (std::getline(inFile, line)) {
         Donor d = Donor::parseLine(line);
-        bool match = d.district == provinceName &&
-            (addressFilter.empty() || d.address.find(addressFilter) != std::string::npos) &&
-            (bloodTypeFilter.empty() || d.bloodType == bloodTypeFilter);
+        bool match = d.getDistrict() == provinceName &&
+            (addressFilter.empty() || d.getAddress().find(addressFilter) != std::string::npos) &&
+            (bloodTypeFilter.empty() || d.getBloodType() == bloodTypeFilter);
 
         if (match) {
             donors.push_back(d);
@@ -262,11 +207,11 @@ void BloodDatabase::searchAndDisplay() const {
         }
         std::cout << ":" << std::endl;
         for (const auto& d : donors) {
-            std::cout << "Nombre: " << d.name << std::endl;
-            std::cout << "Dirección: " << d.address << std::endl;
-            std::cout << "departamento: " << d.district << std::endl;
-            std::cout << "Tipo de sangre: " << d.bloodType << std::endl;
-            std::cout << "Número de móvil: " << d.number << std::endl;
+            std::cout << "Nombre: " << d.getName() << std::endl;
+            std::cout << "Dirección: " << d.getAddress() << std::endl;
+            std::cout << "departamento: " << d.getDistrict() << std::endl;
+            std::cout << "Tipo de sangre: " << d.getBloodType() << std::endl;
+            std::cout << "Número de móvil: " << d.getNumber() << std::endl;
             std::cout << std::endl;
         }
     }
@@ -294,12 +239,12 @@ void BloodDatabase::deleteDonor(const std::string& donorName) {
 
     while (std::getline(inFile, line)) {
         Donor d = Donor::parseLine(line);
-        if (d.name == donorName) {
+        if (d.getName() == donorName) {
             found = true;
-            std::cout << "Nombre: " << d.name << std::endl;
-            std::cout << "Dirección: " << d.address << std::endl;
-            std::cout << "Tipo de sangre: " << d.bloodType << std::endl;
-            std::cout << "Número de móvil: " << d.number << std::endl;
+            std::cout << "Nombre: " << d.getName() << std::endl;
+            std::cout << "Dirección: " << d.getAddress() << std::endl;
+            std::cout << "Tipo de sangre: " << d.getBloodType() << std::endl;
+            std::cout << "Número de móvil: " << d.getNumber() << std::endl;
             std::cout << std::endl;
             std::cout << "¿Está seguro de que desea eliminar al donante? [s/n]: ";
             char sureChoice;
@@ -311,7 +256,7 @@ void BloodDatabase::deleteDonor(const std::string& donorName) {
             }
         }
 
-        tempFile << d.donorId << ",    " << d.name << ",    " << d.address << ",    " << d.district << ",    " << d.bloodType << ",    " << d.number << std::endl;
+        tempFile << d.getDonorId() << ",    " << d.getName() << ",    " << d.getAddress() << ",    " << d.getDistrict() << ",    " << d.getBloodType() << ",    " << d.getNumber() << std::endl;
     }
 
     inFile.close();

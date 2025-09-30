@@ -51,11 +51,7 @@ private:
 public:
     static void clearConsole();
     static void waitForKeyPress();
-    static int getValidatedInput(const std::string& prompt);
-    static std::string validateBloodType();
-    static std::string validateProvince();
-    static std::string mapProvince(int choice);
-
+    void displayDonorDetails(const Donor& donor);
     void getDonorDetails();
     void writeDataToFile();
     void searchAndDisplay() const;

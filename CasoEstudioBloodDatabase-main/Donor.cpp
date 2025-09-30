@@ -22,10 +22,14 @@
 #include <iostream>
 #include <algorithm>
 
-void Donor::donorDetails() const {
-    std::cout << "Nombre del donante: " << name << std::endl;
-    std::cout << "Distrito del donante: " << district << std::endl;
-    std::cout << "Tipo de sangre del donante: " << bloodType << std::endl;
+void Donor::donorDetails(const Donor& donor) const {
+    std::cout << "Nombre del donante: " << donor.name << std::endl;
+    std::cout << "Distrito del donante: " << donor.district << std::endl;
+    std::cout << "Tipo de sangre del donante: " << donor.bloodType << std::endl;
+    std::cout << "Número de contacto del donante: " << donor.number << std::endl;
+    std::cout << "Dirección del donante: " << donor.address << std::endl;
+    std::cout << "ID del donante: " << donorId << std::endl
+                << "-----------------------------------" << std::endl;
 }
 
 Donor Donor::parseLine(const std::string& line) {
@@ -48,4 +52,51 @@ std::string Donor::trim(const std::string& str) {
     if (first == std::string::npos) return "";
     size_t last = str.find_last_not_of(' ');
     return str.substr(first, (last - first + 1));
+}
+
+// declaración setters
+void Donor::setAddress(const std::string& newAddress) {
+    this->address = newAddress;
+}
+
+void Donor::setBloodType(const std::string& type) {
+    this->bloodType = type;
+}
+
+void Donor::setDistrict(const std::string& dist) {
+    this->district = dist;
+}
+
+void Donor::setDonorId(const int id) {
+    this->donorId = id;
+}
+
+void Donor::setNumber(const std::string& phone) {
+    this->number = phone;
+}
+
+void Donor::setName(const std::string& newName) {
+    this-> name = newName;
+}
+
+
+//declaración getters
+int Donor::getDonorId() const{
+    return donorId;
+}
+
+std::string Donor::getName() const {
+    return name;
+}
+std::string Donor::getAddress() const {
+    return address;
+}
+std::string Donor::getBloodType() const {
+    return bloodType;
+}
+std::string Donor::getNumber() const {
+    return number;
+}
+std::string Donor::getDistrict() const {
+    return district;
 }

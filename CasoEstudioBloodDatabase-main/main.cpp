@@ -25,6 +25,7 @@ using namespace std;
 int main() {
     std::string donorName;
     BloodDatabase database;
+   
     int choice;
 
     while (true) {
@@ -49,6 +50,7 @@ int main() {
         switch (choice) {
         case 1:
             database.getDonorDetails();
+           
             database.writeDataToFile();
             break;
         case 2:

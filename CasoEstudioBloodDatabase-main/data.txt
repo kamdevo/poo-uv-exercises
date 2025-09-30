@@ -8,3 +8,8 @@
 1,    kam,    address,    Putumayo,    A+,    3002176362
 1,    kam,    addres,    Putumayo,    A+,    3002176362
 1,    kam,    wewe,    Putumayo,    A+,    3002176362
+1,    kami,    direccion,    Putumayo,    A+,    31175858
+1,    holi,    sdds,    Putumayo,    A+,    22323
+2,    holi,    sds,    Putumayo,    A+,    3434
+2,    kamio,    edsd,    Cauca,    O-,    3333333
+23,    fdf,    dfdfd,    Guainía,    A-,    3232323
