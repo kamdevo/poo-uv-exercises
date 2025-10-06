@@ -17,6 +17,7 @@
 
 #include "BloodDatabase.h"
 #include "Donor.h"
+#include "ReportsModule.h"
 #include <iostream>
 #include <limits>
 #include <string>
@@ -25,7 +26,8 @@ using namespace std;
 int main() {
     std::string donorName;
     BloodDatabase database;
-   
+    ReportsModule reportsModule;
+
     int choice;
 
     while (true) {
@@ -42,7 +44,8 @@ int main() {
         std::cout << "1. Registrar donante\n";
         std::cout << "2. Buscar donante\n";
         std::cout << "3. Eliminar donante\n";
-        std::cout << "4. Salir\n";
+        std::cout << "4. Reportes, estadísticas e indicadores\n";
+        std::cout << "5. Salir\n";
         std::cout << "Ingrese su elección: ";
         std::cin >> choice;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descartar cualquier entrada extra
@@ -63,6 +66,9 @@ int main() {
             BloodDatabase::waitForKeyPress();
             break;
         case 4:
+            reportsModule.showReportsMenu();
+            break;
+        case 5:
             std::cout << "Gracias por usar el Sistema de la Cruz Roja" << std::endl;
             return 0;
         default:

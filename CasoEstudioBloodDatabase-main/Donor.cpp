@@ -26,6 +26,7 @@ void Donor::donorDetails(const Donor& donor) const {
     std::cout << "Nombre del donante: " << donor.name << std::endl;
     std::cout << "Distrito del donante: " << donor.district << std::endl;
     std::cout << "Tipo de sangre del donante: " << donor.bloodType << std::endl;
+    std::cout << "Edad del donante: " << donor.age << std::endl;
     std::cout << "Número de contacto del donante: " << donor.number << std::endl;
     std::cout << "Dirección del donante: " << donor.address << std::endl;
     std::cout << "ID del donante: " << donorId << std::endl
@@ -40,9 +41,15 @@ Donor Donor::parseLine(const std::string& line) {
     getline(ss, token, ','); d.donorId = std::stoi(trim(token));
     getline(ss, token, ','); d.name = trim(token);
     getline(ss, token, ','); d.address = trim(token);
-    getline(ss, token, ','); d.district = trim(token);  // También cambiar district a string
+    getline(ss, token, ','); d.district = trim(token);
     getline(ss, token, ','); d.bloodType = trim(token);
-    getline(ss, token, ','); d.number = trim(token);    // Cambiar a string (sin stoi)
+    getline(ss, token, ',');
+    if (!token.empty()) {
+        d.age = std::stoi(trim(token));
+    } else {
+        d.age = 25; // Edad por defecto para registros antiguos
+    }
+    getline(ss, token, ','); d.number = trim(token);
 
     return d;
 }
@@ -71,6 +78,10 @@ void Donor::setDonorId(const int id) {
     this->donorId = id;
 }
 
+void Donor::setAge(const int newAge) {
+    this->age = newAge;
+}
+
 void Donor::setNumber(const std::string& phone) {
     this->number = phone;
 }
@@ -83,6 +94,10 @@ void Donor::setName(const std::string& newName) {
 //declaración getters
 int Donor::getDonorId() const{
     return donorId;
+}
+
+int Donor::getAge() const {
+    return age;
 }
 
 std::string Donor::getName() const {

@@ -41,7 +41,7 @@ void BloodDatabase::displayProvinces() {
     std::cout << "5. Risaralda\n";
     std::cout << "6. Antioquia\n";
     std::cout << "7. Norte de Santander\n";
-    std::cout << "8. ChutHandleocó\n";
+    std::cout << "8. Chocó\n";
     std::cout << "9. Arauca\n";
     std::cout << "10. Guainía\n";
 }
@@ -86,6 +86,7 @@ void BloodDatabase::displayDonorDetails(const Donor& donor) {
     std::cout << "Dirección: " << donor.getAddress() << std::endl;
     std::cout << "Departamento: " << donor.getDistrict() << std::endl;
     std::cout << "Tipo de sangre: " << donor.getBloodType() << std::endl;
+    std::cout << "Edad: " << donor.getAge() << std::endl;
     std::cout << "Número de móvil: " << donor.getNumber() << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 }
@@ -109,7 +110,7 @@ void BloodDatabase::getDonorDetails() {
     displayProvinces();
     newDonor.setDistrict(InputHandler::validateProvince());
 
-
+    newDonor.setAge(InputHandler::getValidatedInput("Edad: "));
 
     //Se muestra el menú de tipos de sangre
     displayBloodTypes();
@@ -140,7 +141,7 @@ void BloodDatabase::writeDataToFile() {
     }
 
     Donor newDonor = donors.back();
-    outfile << newDonor.getDonorId() << ",    " << newDonor.getName() << ",    " << newDonor.getAddress() << ",    " << newDonor.getDistrict() << ",    " << newDonor.getBloodType() << ",    " << newDonor.getNumber() << std::endl;
+    outfile << newDonor.getDonorId() << ",    " << newDonor.getName() << ",    " << newDonor.getAddress() << ",    " << newDonor.getDistrict() << ",    " << newDonor.getBloodType() << ",    " << newDonor.getAge() << ",    " << newDonor.getNumber() << std::endl;
 
     outfile.close();
 }
@@ -211,6 +212,7 @@ void BloodDatabase::searchAndDisplay() const {
             std::cout << "Dirección: " << d.getAddress() << std::endl;
             std::cout << "departamento: " << d.getDistrict() << std::endl;
             std::cout << "Tipo de sangre: " << d.getBloodType() << std::endl;
+            std::cout << "Edad: " << d.getAge() << std::endl;
             std::cout << "Número de móvil: " << d.getNumber() << std::endl;
             std::cout << std::endl;
         }
@@ -244,6 +246,7 @@ void BloodDatabase::deleteDonor(const std::string& donorName) {
             std::cout << "Nombre: " << d.getName() << std::endl;
             std::cout << "Dirección: " << d.getAddress() << std::endl;
             std::cout << "Tipo de sangre: " << d.getBloodType() << std::endl;
+            std::cout << "Edad: " << d.getAge() << std::endl;
             std::cout << "Número de móvil: " << d.getNumber() << std::endl;
             std::cout << std::endl;
             std::cout << "¿Está seguro de que desea eliminar al donante? [s/n]: ";
@@ -256,7 +259,7 @@ void BloodDatabase::deleteDonor(const std::string& donorName) {
             }
         }
 
-        tempFile << d.getDonorId() << ",    " << d.getName() << ",    " << d.getAddress() << ",    " << d.getDistrict() << ",    " << d.getBloodType() << ",    " << d.getNumber() << std::endl;
+        tempFile << d.getDonorId() << ",    " << d.getName() << ",    " << d.getAddress() << ",    " << d.getDistrict() << ",    " << d.getBloodType() << ",    " << d.getAge() << ",    " << d.getNumber() << std::endl;
     }
 
     inFile.close();

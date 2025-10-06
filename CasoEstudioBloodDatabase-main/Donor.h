@@ -7,6 +7,7 @@ class Donor {
 
 private:
     int donorId;
+    int age;
     std::string name, address, bloodType, number, district;
 
  
@@ -19,6 +20,7 @@ public:
 
     // Getters
     int getDonorId() const;
+    int getAge() const;
     std::string getName() const;
     std::string getAddress() const;
     std::string getBloodType() const;
@@ -26,6 +28,7 @@ public:
     std::string getDistrict() const;
 
     void setDonorId(int id);
+    void setAge(int newAge);
     void setName(const std::string& newName);
     void setAddress(const std::string& newAddress);
     void setBloodType(const std::string& type);
