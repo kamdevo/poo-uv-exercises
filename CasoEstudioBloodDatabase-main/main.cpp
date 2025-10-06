@@ -1,4 +1,11 @@
 /*
+
+
+    Taller de optimizacion de codigo realizado por: 
+    - Juan Camilo Morales Martínez - 2515391
+    - Jorge Luis Castro - 2517065
+
+ 
     Proyecto: BloodDatabase (Adaptado)
     Curso: Fundamentos de Programación Orientada a Objetos (FPOO)
     Universidad del Valle
